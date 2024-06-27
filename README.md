@@ -5,14 +5,14 @@ Welcome to my project's repository! This repository contains various projects th
 ## Projects Overview
 
 1. **Basic NodeJS API**
-   - Description: This repository contains a simple Node.js application that implements a basic API with CRUD (Create, Read, Update, Delete) operations for managing products. The application uses the Express.js framework for routing and handling HTTP requests, and use   
+   - Description: This repository contains a simple Node.js application that implements a basic API with CRUD (Create, Read, Update, Delete) operations for managing products. The application uses the Express.js framework for routing and handling HTTP requests and uses   
      an array as a database to store task information.
    - Branch: [Link to the branch where the project resides.](https://github.com/Md-Abdullah-321/Task-Projects/tree/1.0_NodeJS_Basic_API)
 
 
 ## How to Navigate
 
-Each project is stored in its branch. You can navigate to the specific branch to view the project files and code.
+Each project is stored in its branch. You can navigate to the branch to view the project files and code.
 
 ## How to Use
 
@@ -23,4 +23,4 @@ To use any project:
 
 ## Contact
 
-For any inquiries or feedback regarding these projects, feel free to contact me at [your-email@example.com](mailto:abdullah.dev.it@gmail.com).
+For any inquiries or feedback regarding these projects, please get in touch with me at [abdullah.dev.it@gmail.com](mailto:abdullah.dev.it@gmail.com).
