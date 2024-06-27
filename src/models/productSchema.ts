@@ -7,7 +7,9 @@ const ItemSchema = z.object({
   price: z.number().positive(),
   category: z.enum(["electronics", "clothing", "books", "food", "other"]),
   inStock: z.boolean(),
-  createdAt: z.date(),
+  createdAt: z.preprocess((arg) => {
+    if (typeof arg === "string" || arg instanceof Date) return new Date(arg);
+  }, z.date()),
   tags: z.array(z.string()).max(5).optional(),
   manufacturer: z
     .object({
