@@ -7,11 +7,14 @@ Welcome to my project's repository! This repository contains various projects th
 1. **Basic NodeJS API**
    - Description: This repository contains a simple Node.js application that implements a basic API with CRUD (Create, Read, Update, Delete) operations for managing products. The application uses the Express.js framework for routing and handling HTTP requests and uses   
      an array as a database to store task information.
-   - Branch: [Link to the branch where the project resides.](https://github.com/Md-Abdullah-321/Task-Projects/tree/1.0_NodeJS_Basic_API)
+   - Branch: [https://github.com/Md-Abdullah-321/Task-Projects/tree/1.0_NodeJS_Basic_API](https://github.com/Md-Abdullah-321/Task-Projects/tree/1.0_NodeJS_Basic_API)
+
+2. **Article/News Next.js App (ContentCanvas)**
+   - Crafting a dynamic web experience with Next.js, Tailwind CSS, and TypeScript. Design intuitive Home and Article pages with Tailwind's responsive framework. Implement detailed Single- Article views using Next.js's server-rendered capabilities, enhanced by TypeScript's       robust typing.
+   - Branch: [https://github.com/Md-Abdullah-321/Task-Projects/tree/2.0_NEXTJS_Article_Listing_APP](https://github.com/Md-Abdullah-321/Task-Projects/tree/2.0_NEXTJS_Article_Listing_APP)
 
 
 ## How to Navigate
-
 Each project is stored in its branch. You can navigate to the branch to view the project files and code.
 
 ## How to Use
