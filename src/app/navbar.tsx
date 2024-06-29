@@ -1,19 +1,35 @@
+"use client";
+
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const Navbar: React.FC = () => {
-  const router = useRouter();
+  const pathname = usePathname();
+  console.log(pathname);
+
   return (
-    <nav className="flex w-full justify-between px-20 h-20 items-center bg-black">
-      <h3 className="text-3xl bg-gradient-to-r from-red-600 to-white ... inline-block ... text-transparent ... bg-clip-text font-extrabold">
+    <nav className="flex  w-full justify-between px-6 sm:px-20 h-20 items-center bg-black">
+      <h3 className="text-xl sm:text-3xl bg-gradient-to-r from-red-600 to-white ... inline-block ... text-transparent ... bg-clip-text font-extrabold">
         ContentCanvas
       </h3>
       <div className="flex gap-x-4">
-        <Link href="/" className="text-white uppercase hover:text-">
+        <Link
+          href="/"
+          className={
+            pathname === "/" ? "text-red-600 uppercase" : "text-white uppercase"
+          }
+        >
           Home
         </Link>
-        <Link href="/articles" className="text-white uppercase hover:text-">
+        <Link
+          href="/articles"
+          className={
+            pathname === "/articles"
+              ? "text-red-600 uppercase"
+              : "text-white uppercase"
+          }
+        >
           Articles
         </Link>
       </div>
