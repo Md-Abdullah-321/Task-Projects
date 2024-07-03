@@ -24,10 +24,10 @@ Each project is stored in its branch. You can navigate to the branch to view the
 ## How to Use
 
 To use any project:
-1. Clone this repository: `git clone https://github.com/your-username/your-repository.git`
+1. Clone this repository: `git clone https://github.com/Md-Abdullah-321/Task-Projects.git`
 2. Checkout the branch of the project you're interested in: `git checkout branch-name`
 3. Follow the instructions in the project's README.
 
 ## Contact
 
-For any inquiries or feedback regarding these projects, please get in touch with me at [abdullah.dev.it@gmail.com](mailto:abdullah.dev.it@gmail.com).
+If you have any questions or feedback about these projects, please contact me at [abdullah.dev.it@gmail.com](mailto:abdullah.dev.it@gmail.com).
