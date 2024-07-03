@@ -10,8 +10,12 @@ Welcome to my project's repository! This repository contains various projects th
    - Branch: [https://github.com/Md-Abdullah-321/Task-Projects/tree/1.0_NodeJS_Basic_API](https://github.com/Md-Abdullah-321/Task-Projects/tree/1.0_NodeJS_Basic_API)
 
 2. **Article/News Next.js App (ContentCanvas)**
-   - Crafting a dynamic web experience with Next.js, Tailwind CSS, and TypeScript. Design intuitive Home and Article pages with Tailwind's responsive framework. Implement detailed Single- Article views using Next.js's server-rendered capabilities, enhanced by TypeScript's       robust typing.
+   - Crafting a dynamic web experience with Next.js, Tailwind CSS, and TypeScript. Design intuitive Home and Article pages with Tailwind's responsive framework. Implement detailed Single- Article views using Next.js's server-rendered capabilities, enhanced by TypeScript's robust typing.
    - Branch: [https://github.com/Md-Abdullah-321/Task-Projects/tree/2.0_NEXTJS_Article_Listing_APP](https://github.com/Md-Abdullah-321/Task-Projects/tree/2.0_NEXTJS_Article_Listing_APP)
+
+3. **Debug JavaScript 01**
+   - This repository contains the implementation of two classes, Greeter and FormalGreeter, used to generate greeting messages. The Greeter class provides a simple greeting message with a name and a greeting phrase, while the FormalGreeter class extends Greeter to offer a more formal greeting with a title and name.
+   - Branch: [https://github.com/Md-Abdullah-321/Task-Projects/tree/3.0_JavaScript_Debug_01](https://github.com/Md-Abdullah-321/Task-Projects/tree/3.0_JavaScript_Debug_01)
 
 
 ## How to Navigate
