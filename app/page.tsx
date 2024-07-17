@@ -3,9 +3,17 @@ import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import React, { useEffect, useState } from "react";
 import { CiRedo, CiUndo } from "react-icons/ci";
 import { IoAdd } from "react-icons/io5";
-import Todo, { init } from "./components/todo";
+import Todo from "./components/todo";
 import { generateId } from "./helpers/IdGenerator";
 import { getState, setState } from "./helpers/localStorageController";
+
+interface TodoItem {
+  id: string;
+  type: string;
+  selector?: string;
+  text?: string;
+  delay?: number;
+}
 
 const typedValue = {
   wait: { type: "wait", selector: "" },
@@ -15,14 +23,14 @@ const typedValue = {
 };
 
 const Home = () => {
-  const [currentState, setCurrentState] = useState<init[]>([]);
+  const [currentState, setCurrentState] = useState<TodoItem[]>([]);
 
   useEffect(() => {
     const current = getState("currentState");
     if (current) setCurrentState([...current]);
   }, []);
 
-  const updateStateAndLocalStorage = (updatedState: init[]) => {
+  const updateStateAndLocalStorage = (updatedState: TodoItem[]) => {
     setState("currentState", updatedState);
     setCurrentState(updatedState);
   };
@@ -32,7 +40,7 @@ const Home = () => {
       ? [...getState("prevState"), currentState]
       : [currentState];
     setState("prevState", prevState);
-    const newTodo: init = {
+    const newTodo: TodoItem = {
       id: generateId(),
       type: "wait",
       selector: "",
@@ -78,7 +86,7 @@ const Home = () => {
   const handleCloneItem = (id: string) => {
     const index = currentState.findIndex((item) => item.id === id);
     if (index !== -1) {
-      const clonedItem: init = { ...currentState[index], id: generateId() };
+      const clonedItem: TodoItem = { ...currentState[index], id: generateId() };
       const updatedState = [
         ...currentState.slice(0, index + 1),
         clonedItem,
@@ -153,8 +161,8 @@ const Home = () => {
   return (
     <div className="min-h-screen w-full p-10">
       <h2 className="font-semibold">Browser Instruction List</h2>
-      <div className="w-full h-full flex justify-between mt-10 gap-x-4 items-start">
-        <div className="w-8/12">
+      <div className="w-full h-full flex flex-col md:flex-row justify-between mt-10 gap-x-4 items-start">
+        <div className="w-full md:w-8/12">
           <div className="flex justify-end items-center gap-x-2">
             <CiUndo
               className="p-0.5 w-7 h-7 shadow-sm border cursor-pointer rounded-md"
@@ -199,9 +207,9 @@ const Home = () => {
                           <Todo
                             id={item.id}
                             type={item.type}
-                            selector={item.selector}
-                            text={item.text}
-                            delay={item.delay}
+                            selector={item.selector || ""}
+                            text={item.text || ""}
+                            delay={item.delay || 0}
                             handleTypeChange={handleTypeChange}
                             handleChange={handleChange}
                             handleRemoveItem={handleRemoveItem}
@@ -217,7 +225,7 @@ const Home = () => {
             </Droppable>
           </DragDropContext>
         </div>
-        <div className="w-4/12">
+        <div className="w-full md:w-4/12">
           <h4 className="font-semibold">JSON Output</h4>
           <div className="flex justify-between mt-2 items-center">
             <button className="p-1 shadow-sm border cursor-pointer text-sm rounded-md">
