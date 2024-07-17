@@ -8,24 +8,10 @@ import { generateId } from "./helpers/IdGenerator";
 import { getState, setState } from "./helpers/localStorageController";
 
 const typedValue = {
-  wait: {
-    type: "wait",
-    selector: "",
-  },
-  fill: {
-    type: "fill",
-    selector: "",
-    text: "",
-    delay: 0,
-  },
-  delay: {
-    type: "delay",
-    delay: 0,
-  },
-  click: {
-    type: "click",
-    selector: "",
-  },
+  wait: { type: "wait", selector: "" },
+  fill: { type: "fill", selector: "", text: "", delay: 0 },
+  delay: { type: "delay", delay: 0 },
+  click: { type: "click", selector: "" },
 };
 
 const Home = () => {
@@ -33,20 +19,18 @@ const Home = () => {
 
   useEffect(() => {
     const current = getState("currentState");
-    if (current) {
-      setCurrentState([...current]);
-    }
+    if (current) setCurrentState([...current]);
   }, []);
 
   const updateStateAndLocalStorage = (updatedState: init[]) => {
     setState("currentState", updatedState);
-    setCurrentState([...updatedState]);
+    setCurrentState(updatedState);
   };
 
   const handleCreateTodo = () => {
     const prevState = getState("prevState")
       ? [...getState("prevState"), currentState]
-      : currentState;
+      : [currentState];
     setState("prevState", prevState);
     const newTodo: init = {
       id: generateId(),
@@ -62,16 +46,16 @@ const Home = () => {
   ) => {
     const { value } = e.target;
     if (value in typedValue) {
-      setCurrentState((prev) => {
-        const updatedState = prev.map((item) => {
-          if (item.id === id) {
-            return { ...typedValue[value as keyof typeof typedValue], id };
-          }
-          return item;
-        });
-        setState("currentState", updatedState);
-        return updatedState;
-      });
+      const updatedState = currentState.map((item) =>
+        item.id === id
+          ? { ...typedValue[value as keyof typeof typedValue], id }
+          : item
+      );
+      const prevState = getState("prevState")
+        ? [...getState("prevState"), currentState]
+        : [currentState];
+      setState("prevState", prevState);
+      updateStateAndLocalStorage(updatedState);
     }
   };
 
@@ -84,6 +68,10 @@ const Home = () => {
 
   const handleRemoveItem = (id: string) => {
     const updatedState = currentState.filter((item) => item.id !== id);
+    const prevState = getState("prevState")
+      ? [...getState("prevState"), currentState]
+      : [currentState];
+    setState("prevState", prevState);
     updateStateAndLocalStorage(updatedState);
   };
 
@@ -96,11 +84,19 @@ const Home = () => {
         clonedItem,
         ...currentState.slice(index + 1),
       ];
+      const prevState = getState("prevState")
+        ? [...getState("prevState"), currentState]
+        : [currentState];
+      setState("prevState", prevState);
       updateStateAndLocalStorage(updatedState);
     }
   };
 
   const handleClearItem = () => {
+    const prevState = getState("prevState")
+      ? [...getState("prevState"), currentState]
+      : [currentState];
+    setState("prevState", prevState);
     updateStateAndLocalStorage([]);
   };
 
@@ -119,9 +115,7 @@ const Home = () => {
   const onDragEnd = (result: any) => {
     const { destination, source } = result;
 
-    if (!destination) {
-      return;
-    }
+    if (!destination) return;
 
     const items = Array.from(currentState);
     const [reorderedItem] = items.splice(source.index, 1);
@@ -131,12 +125,29 @@ const Home = () => {
   };
 
   const goToPrevState = () => {
-    setCurrentState(() => {
-      const prevState = getState("prevState");
-      setState("prevState", prevState.slice(0, prevState.length - 1));
-      setState("currentState", prevState.splice(prevState.length - 1, 1));
-      return prevState.splice(prevState.length - 1, 1);
-    });
+    const prevState = getState("prevState");
+    if (prevState && prevState.length > 0) {
+      const nextState = getState("nextState")
+        ? [...getState("nextState"), currentState]
+        : [currentState];
+      setState("nextState", nextState);
+      const lastState = prevState.pop();
+      setState("prevState", prevState);
+      setCurrentState(lastState);
+    }
+  };
+
+  const goToNextState = () => {
+    const nextState = getState("nextState");
+    if (nextState && nextState.length > 0) {
+      const prevState = getState("prevState")
+        ? [...getState("prevState"), currentState]
+        : [currentState];
+      setState("prevState", prevState);
+      const lastState = nextState.pop();
+      setState("nextState", nextState);
+      setCurrentState(lastState);
+    }
   };
 
   return (
@@ -149,7 +160,10 @@ const Home = () => {
               className="p-0.5 w-7 h-7 shadow-sm border cursor-pointer rounded-md"
               onClick={goToPrevState}
             />
-            <CiRedo className="p-0.5 w-7 h-7 shadow-sm border cursor-pointer rounded-md" />
+            <CiRedo
+              className="p-0.5 w-7 h-7 shadow-sm border cursor-pointer rounded-md"
+              onClick={goToNextState}
+            />
             <button
               className="p-1 shadow-sm border cursor-pointer text-sm rounded-md"
               onClick={handleClearItem}
@@ -162,7 +176,6 @@ const Home = () => {
             />
           </div>
 
-          {/* Lists  */}
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable">
               {(provided) => (
@@ -171,7 +184,7 @@ const Home = () => {
                   ref={provided.innerRef}
                   className="w-full flex flex-col gap-y-2 mt-4"
                 >
-                  {currentState?.map((item, index) => (
+                  {currentState.map((item, index) => (
                     <Draggable
                       key={item.id}
                       draggableId={item.id}
@@ -215,7 +228,6 @@ const Home = () => {
             </button>
           </div>
 
-          {/* Show JSON  */}
           <div className="w-full h-full mt-5">
             <textarea
               className="w-full h-96 shadow-sm outline-none border p-2 rounded-md text-sm text-gray-700"
